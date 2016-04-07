@@ -90,7 +90,7 @@ public class Board extends JPanel{
 			loadWeapons();
 			createDeck();
 			selectAnswer();
-			//deal();
+			deal();
 		}
 		catch (BadConfigFormatException e)
 		{
@@ -375,7 +375,7 @@ public class Board extends JPanel{
 
 	public void deal(){
 		for(int i = 0; i < deck.size(); i++){
-			playableCharacters.get(i % playableCharacters.size()).setHand(deck.get(i));
+			players.get(i % players.size()).setHand(deck.get(i));
 		}
 	}
 	
@@ -385,9 +385,7 @@ public class Board extends JPanel{
 			if(playableCharacters.get(i).getName().equals(accusingPlayer) )
 				start = i;
 		}
-		if(start == -1){
-			return null;
-		}
+
 		Card card;
 		for(int i = start + 1; i<playableCharacters.size();i++){
 			card = playableCharacters.get(i).disproveSuggestion(suggestion);
@@ -467,6 +465,7 @@ public class Board extends JPanel{
 	public void clearPlayers(){
 		playableCharacters.clear();
 	}
+	
 	public Set<Card> getWeapons(){
 		return weapons;
 	}
