@@ -15,7 +15,9 @@ public class Player {
 	private char lastRoom;
 
 	
-	
+	public Player(){
+		super();
+	}
 	public Player(String playerName, int row, int column, Color color) {
 		super();
 		this.playerName = playerName;
@@ -48,6 +50,10 @@ public class Player {
 	}
 	public void setHand(Card card){
 		hand.add(card);
+	}
+	
+	public void setTotalHand(Set<Card> cards){
+		hand.addAll(cards);
 	}
 	public Set<Card> getHand(){
 		return hand;

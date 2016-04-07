@@ -38,6 +38,8 @@ public class Board extends JPanel{
 	private Set<BoardCell> visited;	
 	private LinkedList<Player> players;
 	private LinkedList<Player> playableCharacters;
+	private LinkedList<ComputerPlayer> computerPlayers;
+	private HumanPlayer human;
 	private Set<Card> characters;
 	private Set<Card> weapons;
 	private Set<Card> roomCards;
@@ -493,4 +495,22 @@ public class Board extends JPanel{
 		}
 		
 	}
+	
+	public void createHumanComputer(){
+		computerPlayers = new LinkedList<ComputerPlayer>();
+		human = new HumanPlayer();
+		for(Player p: players){
+			if(p.getName().equals("Miss Scarlett")){
+				human = new HumanPlayer(p.getName(), p.getRow(), p.getColumn(), p.getColor());
+				human.setTotalHand(p.getHand());	
+				}
+			else{
+				ComputerPlayer cp= new ComputerPlayer(p.getName(), p.getRow(), p.getColumn(), p.getColor());
+				cp.setTotalHand(p.getHand());
+				computerPlayers.add(cp);
+			}
+			}
+		}
+		
+		
 }
