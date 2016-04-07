@@ -9,15 +9,8 @@ import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 
-import Clue.Board;
-import Clue.BoardCell;
-import Clue.Card;
-import Clue.CardType;
-import Clue.ComputerPlayer;
-import Clue.DoorDirection;
-import Clue.HumanPlayer;
-import Clue.Player;
-import Clue.Solution;
+import Game.*;
+import Players.*;
 
 public class GameActionTests {
 	
