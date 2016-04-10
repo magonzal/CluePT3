@@ -1,4 +1,4 @@
-package Game;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import Game.Board;
 import Players.Card;
 import Players.Player;
 

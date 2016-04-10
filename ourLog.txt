@@ -1,0 +1,47 @@
+commit 580f799122d1003e698c3be2f3478ac3656af7e4
+Author: Taylor Rumbaugh <trumbaug@mines.edu>
+Date:   Sun Apr 10 15:20:02 2016 -0600
+
+    Refactor 8: Modified dependence within board on playable characters to only be utilized for tests - changed playablePlayers to players LinkedList within game specific methods
+
+commit 9d2ca20366ad02ec9d991c2c8eb3387488373821
+Author: Taylor Rumbaugh <trumbaug@mines.edu>
+Date:   Sun Apr 10 15:12:03 2016 -0600
+
+    Refactor 7: Added proper comments throughout each class in order to help with confusion and navigation
+
+commit 05a291a98bb07721e26b5a33682b4ea3990264b8
+Author: Taylor Rumbaugh <trumbaug@mines.edu>
+Date:   Sun Apr 10 14:56:26 2016 -0600
+
+    Refactor 6: Reorganized each class and consequent methods for simplicity and to make searching for individual methods easier
+
+commit 9f8e85ce1f91a990734eb2d79c621eea0a0fe71e
+Author: Taylor Rumbaugh <trumbaug@mines.edu>
+Date:   Sun Apr 10 14:39:03 2016 -0600
+
+    Refactor 5: Cleaned up detective note dialog and board display gui - fixed combo box problem, dimension issues, etc.
+
+commit 33065421267d707a16191824667692414701ac4b
+Author: Marcelo Gonzales <magonzal@mymail.mines.edu>
+Date:   Thu Apr 7 16:40:16 2016 -0600
+
+    Refactor 4: Added createHumanPlayer() method to the Board class
+
+commit fbb025e20516d9427f745d2e188945e51355cbc6
+Author: Marcelo Gonzales <magonzal@mymail.mines.edu>
+Date:   Thu Apr 7 16:26:23 2016 -0600
+
+    Refactor 3: Simplified method handlesSuggestion by removing unnecessary lines
+
+commit 31e6e73b3113b04d4b27e6c989dbcd264b932302
+Author: Marcelo Gonzales <magonzal@mymail.mines.edu>
+Date:   Thu Apr 7 16:03:51 2016 -0600
+
+    Refactor 2: Fixed Detective notes dialog so it opens up using the file menu option
+
+commit e7d151f43f7a187083481a7007242223a4ee5747
+Author: Marcelo Gonzales <magonzal@mymail.mines.edu>
+Date:   Thu Apr 7 15:51:38 2016 -0600
+
+    refactor 1: changed solution attributes to public

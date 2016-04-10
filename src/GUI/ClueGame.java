@@ -1,4 +1,4 @@
-package Game;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -10,18 +10,22 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import Game.Board;
+
 
 public class ClueGame extends JFrame{
-	
+	private Control control;
 	private Board board;
 	private DetectiveNotes dnDialog;
 	public ClueGame(){
-		setSize(600,600);
+		setSize(1000, 800);
 		setTitle("Clue");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		board = new Board();
 		board.initialize();
+		control = new Control();
 		add(board, BorderLayout.CENTER);
+		add(control, BorderLayout.SOUTH);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -64,7 +68,7 @@ public class ClueGame extends JFrame{
 	
 	public static void main(String[] args) {
 		ClueGame clue = new ClueGame();
-		clue.setVisible(true);
 		JOptionPane.showMessageDialog(clue, "You are Miss Scarlet! Press Next Player to begin playing.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		clue.setVisible(true);
 	}
 }
