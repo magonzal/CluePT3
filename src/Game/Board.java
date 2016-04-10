@@ -37,7 +37,7 @@ public class Board extends JPanel{
 	private LinkedList<Player> players;
 	private LinkedList<Player> playableCharacters; //Used within tests only
 	private LinkedList<ComputerPlayer> computerPlayers;
-	private HumanPlayer human;
+	public HumanPlayer human;
 	private Set<Card> characters;
 	private Set<Card> weapons;
 	private Set<Card> roomCards;

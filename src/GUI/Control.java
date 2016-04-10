@@ -16,7 +16,6 @@ public class Control extends JPanel {
 	private JTextField title;
 	
 	public Control() {
-		setSize(new Dimension(800, 600));
 		setLayout(new GridLayout(2, 0));
 		JPanel firstPanel = createFirstPanel();
 		add(firstPanel);

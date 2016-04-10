@@ -17,15 +17,18 @@ public class ClueGame extends JFrame{
 	private Control control;
 	private Board board;
 	private DetectiveNotes dnDialog;
+	private HumanHand humanCards;
+	
 	public ClueGame(){
-		setSize(1000, 800);
+		setSize(800, 800);
 		setTitle("Clue");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		board = new Board();
 		board.initialize();
 		control = new Control();
 		add(board, BorderLayout.CENTER);
-		add(control, BorderLayout.SOUTH);
+		add(control, BorderLayout.NORTH);
+		add(humanCards, BorderLayout.EAST);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
