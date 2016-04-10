@@ -28,7 +28,7 @@ public class Player {
 		hand = new HashSet<Card>();
 	}
 
-
+	//Disproves a give suggestion made by another player
 	public Card disproveSuggestion(Solution suggestion){
 		LinkedList<Card> matches = new LinkedList<Card>();
 		for(Card c: hand){
@@ -50,6 +50,12 @@ public class Player {
 		
 	}
 	
+	//Draws each player piece for the control gui - called within paintComponent() for board
+	public void draw(Graphics g, int x, int y, int w, int h){
+		g.setColor(getColor());
+		g.fillOval(x, y, w-2, h-2);
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 		if( this == other ) return true;
@@ -62,11 +68,12 @@ public class Player {
 				this.color.equals(otherOne.color);
 	}
 	
-	public void draw(Graphics g, int x, int y, int w, int h){
-		g.setColor(getColor());
-		g.fillOval(x, y, w-2, h-2);
+	@Override
+	public String toString() {
+		return "Player [playerName=" + playerName + ", row=" + row + ", column=" + column + ", color=" + color + "]";
 	}
 	
+	//Getter/Setter methods
 	public void setHand(Card card){
 		hand.add(card);
 	}
@@ -78,11 +85,6 @@ public class Player {
 		return hand;
 	}
 
-	@Override
-	public String toString() {
-		return "Player [playerName=" + playerName + ", row=" + row + ", column=" + column + ", color=" + color + "]";
-	}
-	
 	public Color getColor(){
 		return color;
 	}

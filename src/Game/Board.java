@@ -20,8 +20,6 @@ import javax.swing.JPanel;
 
 import Players.*;
 
-
-
 public class Board extends JPanel{
 	private int numRows;
 	private int numColumns;
@@ -105,6 +103,7 @@ public class Board extends JPanel{
 		}
 	}
 
+	//Load room configuration 
 	public void loadRoomConfig()  throws FileNotFoundException, BadConfigFormatException{
 		FileReader reader = null;
 		roomCards = new HashSet<Card>();
@@ -145,6 +144,7 @@ public class Board extends JPanel{
 		}
 	}
 
+	//Load board configuration
 	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException{
 		FileReader reader = null;
 		try {
@@ -218,6 +218,7 @@ public class Board extends JPanel{
 			throw e;}
 	}
 
+	//Load weapons for deck
 	public void loadWeapons(){
 		FileReader reader;
 		try{
@@ -237,6 +238,7 @@ public class Board extends JPanel{
 
 	}
 
+	//Load characters for deck and players
 	public void loadCharacters(){
 		FileReader reader;
 		try{
@@ -261,6 +263,7 @@ public class Board extends JPanel{
 		}
 	}
 
+	//Calculate proper targets for possible moves
 	public void calcTargets(int row, int col , int pathLength) {
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
@@ -268,6 +271,7 @@ public class Board extends JPanel{
 		findAllTargets(board[row][col], pathLength);
 	}
 
+	//Calculate proper adjacent board cells for navigation
 	public void calcAdjacencies() {
 		Set<Character> checker = rooms.keySet();
 		checker.remove('W');
@@ -308,6 +312,7 @@ public class Board extends JPanel{
 		}
 	}
 
+	//Find all possible targets for each board cell - called within calcTargets()
 	private void findAllTargets(BoardCell thisCell, int numStep)
 	{
 		LinkedList<BoardCell> adjacentCells = adjMatrix.get(thisCell);
@@ -325,6 +330,7 @@ public class Board extends JPanel{
 		}
 	}
 
+	//Chooses a random character, room, and weapon card from deck that will be the player's answer 
 	public void selectAnswer(){
 		ArrayList<Card> chars = new ArrayList<Card>(characters);
 		ArrayList<Card> rm = new ArrayList<Card>(roomCards);
@@ -344,6 +350,7 @@ public class Board extends JPanel{
 
 	}
 
+	//Creates deck of people, room, and weapon cards
 	public void createDeck(){
 		deck = new LinkedList<Card>();
 		deckBeforeDeal = new LinkedList<Card>();
@@ -356,12 +363,14 @@ public class Board extends JPanel{
 		}
 	}
 
+	//Deals proper amount of cards to each player
 	public void deal(){
 		for(int i = 0; i < deck.size(); i++){
 			players.get(i % players.size()).setHand(deck.get(i));
 		}
 	}
 
+	//Handles suggestion made by a player
 	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked){
 		int start = -1;
 		for(int i = 0; i < playableCharacters.size();i++){
@@ -393,6 +402,7 @@ public class Board extends JPanel{
 
 	}
 
+	//Sets game solution
 	public void setSolution(Solution sol){
 		solution.setPerson(sol.person);
 		solution.setRoom(sol.room);
@@ -415,6 +425,7 @@ public class Board extends JPanel{
 		}
 	}
 
+	//Methods for creating the game board for the control gui
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		HashMap<Character,Integer> xcoord = new HashMap<Character,Integer>();
@@ -439,6 +450,7 @@ public class Board extends JPanel{
 
 	}
 	
+	//Converts string object to a color object
 	public Color convertColor(String strColor) {
 		Color color; 
 		try {     
@@ -451,6 +463,7 @@ public class Board extends JPanel{
 		return color;
 	}
 
+	//Getter/Setter methods
 	public BoardCell getCellAt(int row, int column) {
 		return board[row][column];
 	}

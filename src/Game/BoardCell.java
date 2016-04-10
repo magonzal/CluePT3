@@ -39,6 +39,7 @@ public class BoardCell {
 		}
 	}
 	
+	//Draw method for each individual board cell - called within paintComponent for the board
 	public void draw(Graphics g, int r, int c, int w, int h){
 		int x = r;
 		int y = c;
@@ -68,6 +69,7 @@ public class BoardCell {
 		}
 	}
 
+	//Methods return true/false to classify specific attributes of each cell
 	public boolean isWalkway() {
 		return getInitial() == 'W';
 	}
@@ -84,11 +86,13 @@ public class BoardCell {
 			return true;
 		return false;
 	}
+	
 	@Override
 	public String toString() {
 		return "BoardCell [row=" + row + ", column=" + column + ", initial=" + initial + ", doorDir=" + doorDir + "]";
 	}
 	
+	//Getter/Setter methods
 	public int getRow(){
 		return row;
 	}

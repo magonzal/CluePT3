@@ -54,6 +54,7 @@ public class Solution {
 		return "Solution [person=" + person + ", room=" + room + ", weapon=" + weapon + "]";
 	}
 	
+	//Getter/Setter methods
 	public String getPerson() {
 		return person;
 	}

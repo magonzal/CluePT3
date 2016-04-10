@@ -17,6 +17,7 @@ public class ComputerPlayer extends Player{
 		seen = new LinkedList<Card>();
 	}
 
+	//Picks a proper location for the computer location to move to
 	public BoardCell pickLocation(Set<BoardCell> targets){
 		for(BoardCell cell: targets){
 			if(cell.isRoom() && cell.getColumn() != getColumn() && cell.getRow() != getRow() && cell.getInitial() != getLastroom())
@@ -32,6 +33,7 @@ public class ComputerPlayer extends Player{
 		
 	}
 	
+	//Allows the computer player to make a suggestion with known cards
 	public Solution makeSuggestion(Board board, BoardCell location){
 		LinkedList<Card> deckBeforeHand = board.getDeckBeforeDeal();
 		LinkedList<Card> hand = new LinkedList<Card>(getHand());
@@ -73,6 +75,7 @@ public class ComputerPlayer extends Player{
 		return suggestion;
 	}
 	
+	//Getter/Setter methods
 	public void addSeen(Card card){
 		seen.add(card);
 	}

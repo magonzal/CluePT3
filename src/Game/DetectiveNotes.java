@@ -34,6 +34,7 @@ public class DetectiveNotes extends JFrame{
 		add(weaponCombo());
 		
 	}
+	
 	public JPanel people(){
 		JPanel panel = new JPanel();
 		for(Player p: board.getPlayers()){
@@ -73,6 +74,7 @@ public class DetectiveNotes extends JFrame{
 		east.setLayout(new GridLayout(3,1));
 		return east;
 	}
+	
 	public JComboBox<String> personCombo(){
 		JComboBox<String> box = new JComboBox<String>();
 		for(Player p: board.getPlayers()){
@@ -90,6 +92,7 @@ public class DetectiveNotes extends JFrame{
 		box.setBorder(new TitledBorder (new EtchedBorder(), "Room Guess"));
 		return box;
 	}
+	
 	public JComboBox<String> weaponCombo(){
 		JComboBox<String> box = new JComboBox<String>();
 		for(Card c: board.getWeapons()){
