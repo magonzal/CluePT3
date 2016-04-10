@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 
 public class ClueGame extends JFrame{
@@ -60,8 +61,10 @@ public class ClueGame extends JFrame{
 
 		return item;
 	}
+	
 	public static void main(String[] args) {
 		ClueGame clue = new ClueGame();
-		clue.setVisible(true);		
+		clue.setVisible(true);
+		JOptionPane.showMessageDialog(clue, "You are Miss Scarlet! Press Next Player to begin playing.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
