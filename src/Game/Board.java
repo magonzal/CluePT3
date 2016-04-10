@@ -35,7 +35,7 @@ public class Board extends JPanel{
 	private String weaponsFile;
 	private Set<BoardCell> visited;	
 	private LinkedList<Player> players;
-	private LinkedList<Player> playableCharacters;
+	private LinkedList<Player> playableCharacters; //Used within tests only
 	private LinkedList<ComputerPlayer> computerPlayers;
 	private HumanPlayer human;
 	private Set<Card> characters;
@@ -257,7 +257,8 @@ public class Board extends JPanel{
 			}
 			for(int i = 0; i < numPlayers; i++){
 				playableCharacters.add(players.get(i));
-			}
+			} //Necessary for tests
+			
 		}catch(FileNotFoundException e){
 			System.out.println(e.getMessage());
 		}
@@ -373,14 +374,14 @@ public class Board extends JPanel{
 	//Handles suggestion made by a player
 	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked){
 		int start = -1;
-		for(int i = 0; i < playableCharacters.size();i++){
-			if(playableCharacters.get(i).getName().equals(accusingPlayer) )
+		for(int i = 0; i < players.size();i++){
+			if(players.get(i).getName().equals(accusingPlayer) )
 				start = i;
 		}
 
 		Card card;
-		for(int i = start + 1; i<playableCharacters.size();i++){
-			card = playableCharacters.get(i).disproveSuggestion(suggestion);
+		for(int i = start + 1; i<players.size();i++){
+			card = players.get(i).disproveSuggestion(suggestion);
 			if(card == null){
 				continue;
 			}
@@ -390,7 +391,7 @@ public class Board extends JPanel{
 		}
 
 		for(int i = 0; i< start;i++){
-			card = playableCharacters.get(i).disproveSuggestion(suggestion);
+			card = players.get(i).disproveSuggestion(suggestion);
 			if(card == null){
 				continue;
 			}
@@ -521,7 +522,7 @@ public class Board extends JPanel{
 	}
 	public int getDealtCardSize(){
 		int total = 0;
-		for(Player p: playableCharacters){
+		for(Player p: players){
 			total= total + p.getHand().size();
 		}
 		return total;
