@@ -93,6 +93,7 @@ public class Board extends JPanel{
 			createDeck();
 			selectAnswer();
 			deal();
+			createHumanComputer();
 		}
 		catch (BadConfigFormatException e)
 		{

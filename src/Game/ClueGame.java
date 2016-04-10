@@ -15,25 +15,23 @@ public class ClueGame extends JFrame{
 	private Board board;
 	private DetectiveNotes dnDialog;
 	public ClueGame(){
-		setSize(500,550);
+		setSize(600,600);
+		setTitle("Clue");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		board = new Board();
 		board.initialize();
 		add(board, BorderLayout.CENTER);
 		
-
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
-		
-
 	}
 
 	private JMenu createFileMenu()
 	{
 		JMenu menu = new JMenu("File"); 
-		menu.add(createFileExitItem());
 		menu.add(createDetectiveNotes());
+		menu.add(createFileExitItem());
 		return menu;
 	}
 	
@@ -49,8 +47,6 @@ public class ClueGame extends JFrame{
 		return detectiveNotes;
 	}
 	
-
-
 	private JMenuItem createFileExitItem()
 	{
 		JMenuItem item = new JMenuItem("Exit");
@@ -67,6 +63,5 @@ public class ClueGame extends JFrame{
 	public static void main(String[] args) {
 		ClueGame clue = new ClueGame();
 		clue.setVisible(true);		
-		
 	}
 }

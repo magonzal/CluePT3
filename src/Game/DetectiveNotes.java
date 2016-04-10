@@ -21,15 +21,18 @@ public class DetectiveNotes extends JFrame{
 	public DetectiveNotes(){
 		board = new Board();
 		board.initialize();
-	
-		add(people(), BorderLayout.WEST);
-		add(rooms(), BorderLayout.WEST);
-		add(weapons(), BorderLayout.WEST);
-		add(personCombo(), BorderLayout.EAST);
-		add(roomCombo(), BorderLayout.EAST);
-		add(weaponCombo(), BorderLayout.EAST);
-		setLayout(new GridLayout(2,4));
+		
+		setLayout(new GridLayout(2,3));
 		setSize(900,600);
+		setTitle("Detective Notes");
+		
+		add(people());
+		add(rooms());
+		add(weapons());
+		add(personCombo());
+		add(roomCombo());
+		add(weaponCombo());
+		
 	}
 	public JPanel people(){
 		JPanel panel = new JPanel();
@@ -61,6 +64,7 @@ public class DetectiveNotes extends JFrame{
 		panel.setLayout(new GridLayout(3,2));
 		return panel;
 	}
+	
 	public JPanel east(){
 		JPanel east = new JPanel();
 		east.add(people());
@@ -75,7 +79,6 @@ public class DetectiveNotes extends JFrame{
 			box.addItem(p.getName());
 		}
 		box.setBorder(new TitledBorder (new EtchedBorder(), "Person Guess"));
-		box.setLayout(new GridLayout(1,1));
 		return box;
 	}
 	
