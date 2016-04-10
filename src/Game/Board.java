@@ -47,7 +47,7 @@ public class Board extends JPanel{
 	private LinkedList<Card> deckBeforeDeal;
 	private int numPlayers;
 	private Solution solution;
-	
+
 	public Board() {
 		super();
 		board = new BoardCell[BOARD_SIZE][BOARD_SIZE];
@@ -58,8 +58,10 @@ public class Board extends JPanel{
 		rooms = new HashMap<Character,String>();
 		adjMatrix = new HashMap<BoardCell, LinkedList<BoardCell>>();
 		playableCharacters = new LinkedList<Player>();
+		players = new LinkedList<Player>();
 		solution = new Solution("","","");
 	}
+
 	public Board(String boardConfigFile, String roomConfigFile, String charactersFile, String weaponsFile, int numPlayers) {
 		super();
 		board = new BoardCell[BOARD_SIZE][BOARD_SIZE];
@@ -70,19 +72,11 @@ public class Board extends JPanel{
 		this.numPlayers = numPlayers;
 		rooms = new HashMap<Character,String>();
 		adjMatrix = new HashMap<BoardCell, LinkedList<BoardCell>>();
+		playableCharacters = new LinkedList<Player>();
+		players = new LinkedList<Player>();
+		solution = new Solution("","","");
 	}
-	public int getNumDoors() {
-		return numDoors;
-	}
-	public int getNumRows() {
-		return numRows;
-	}
-	public int getNumColumns() {
-		return numColumns;
-	}
-	public static Map<Character, String> getRooms() {
-		return rooms;
-	}
+
 	public void initialize() {
 		try{
 			loadRoomConfig();
@@ -110,6 +104,7 @@ public class Board extends JPanel{
 			e.getMessage();
 		}
 	}
+
 	public void loadRoomConfig()  throws FileNotFoundException, BadConfigFormatException{
 		FileReader reader = null;
 		roomCards = new HashSet<Card>();
@@ -132,7 +127,7 @@ public class Board extends JPanel{
 					roomCards.add(new Card(ar[1], CardType.ROOM));
 				}
 			}
-			}
+		}
 		catch (FileNotFoundException e)
 		{
 			throw e;
@@ -149,6 +144,7 @@ public class Board extends JPanel{
 			throw e;
 		}
 	}
+
 	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException{
 		FileReader reader = null;
 		try {
@@ -221,15 +217,57 @@ public class Board extends JPanel{
 			}
 			throw e;}
 	}
-	public BoardCell getCellAt(int row, int column) {
-		return board[row][column];
+
+	public void loadWeapons(){
+		FileReader reader;
+		try{
+			reader = new FileReader(weaponsFile);
+			Scanner in = new Scanner(reader);
+			weapons = new HashSet<Card>();
+			String dummy;
+			while(in.hasNext()){
+				dummy = in.nextLine();
+				weapons.add(new Card(dummy, CardType.WEAPON));
+			}
+
+
+		}catch(FileNotFoundException e){
+			System.out.println(e.getMessage());
+		}
+
 	}
+
+	public void loadCharacters(){
+		FileReader reader;
+		try{
+			reader = new FileReader(charactersFile);
+			Scanner in = new Scanner(reader);
+			players = new LinkedList<Player>();
+			playableCharacters = new LinkedList<Player>();
+			characters = new HashSet<Card>();
+			String dummy;
+			String[] ar;
+			while(in.hasNext()){
+				dummy = in.nextLine();
+				ar = dummy.split(",");
+				players.add(new Player(ar[0].trim(),Integer.parseInt(ar[1].trim()), Integer.parseInt(ar[2].trim()), convertColor(ar[3].trim().toLowerCase())));
+				characters.add(new Card(ar[0].trim(), CardType.PERSON));
+			}
+			for(int i = 0; i < numPlayers; i++){
+				playableCharacters.add(players.get(i));
+			}
+		}catch(FileNotFoundException e){
+			System.out.println(e.getMessage());
+		}
+	}
+
 	public void calcTargets(int row, int col , int pathLength) {
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		visited.add(board[row][col]);
 		findAllTargets(board[row][col], pathLength);
 	}
+
 	public void calcAdjacencies() {
 		Set<Character> checker = rooms.keySet();
 		checker.remove('W');
@@ -269,6 +307,7 @@ public class Board extends JPanel{
 			}
 		}
 	}
+
 	private void findAllTargets(BoardCell thisCell, int numStep)
 	{
 		LinkedList<BoardCell> adjacentCells = adjMatrix.get(thisCell);
@@ -286,84 +325,25 @@ public class Board extends JPanel{
 		}
 	}
 
-	public Set<BoardCell> getTargets() {
-		return targets;
-	}
-	public LinkedList<BoardCell> getAdjList(int row, int col) {
-		return adjMatrix.get(board[row][col]);
-	}
-	//Clue 2 methods
-	public void loadWeapons(){
-		FileReader reader;
-		try{
-			reader = new FileReader(weaponsFile);
-			Scanner in = new Scanner(reader);
-			weapons = new HashSet<Card>();
-			String dummy;
-			while(in.hasNext()){
-				dummy = in.nextLine();
-				weapons.add(new Card(dummy, CardType.WEAPON));
-			}
-			
-			
-		}catch(FileNotFoundException e){
-			System.out.println(e.getMessage());
-		}
-		
-	}
-	public Color convertColor(String strColor) {
-		Color color; 
-		try {     
-			// We can use reflection to convert the string to a color
-			Field field = Class.forName("java.awt.Color").getField(strColor.trim());     
-			color = (Color)field.get(null); } 
-		catch (Exception e) {  
-			color = null; // Not defined 
-		}
-		return color;
-	}
-	public void loadCharacters(){
-		FileReader reader;
-		try{
-			reader = new FileReader(charactersFile);
-			Scanner in = new Scanner(reader);
-			players = new LinkedList<Player>();
-			playableCharacters = new LinkedList<Player>();
-			characters = new HashSet<Card>();
-			String dummy;
-			String[] ar;
-			while(in.hasNext()){
-				dummy = in.nextLine();
-				ar = dummy.split(",");
-				players.add(new Player(ar[0].trim(),Integer.parseInt(ar[1].trim()), Integer.parseInt(ar[2].trim()), convertColor(ar[3].trim().toLowerCase())));
-				characters.add(new Card(ar[0].trim(), CardType.PERSON));
-			}
-			for(int i = 0; i < numPlayers; i++){
-				playableCharacters.add(players.get(i));
-			}
-		}catch(FileNotFoundException e){
-			System.out.println(e.getMessage());
-		}
-	}
-	
 	public void selectAnswer(){
 		ArrayList<Card> chars = new ArrayList<Card>(characters);
 		ArrayList<Card> rm = new ArrayList<Card>(roomCards);
 		ArrayList<Card> weap = new ArrayList<Card>(weapons);
-		
+
 		Random rand = new Random();
 		int index = rand.nextInt(chars.size());
 		Card charSolution = (Card) chars.get(index);
 		Card roomSolution = (Card) rm.get(index);
 		Card weapSolution = (Card) weap.get(index);
-		
+
 		deck.remove(charSolution);
 		deck.remove(roomSolution);
 		deck.remove(weapSolution);
 		solution = new Solution(charSolution.getCardName(), roomSolution.getCardName(), weapSolution.getCardName());
-		
-		
+
+
 	}
+
 	public void createDeck(){
 		deck = new LinkedList<Card>();
 		deckBeforeDeal = new LinkedList<Card>();
@@ -381,7 +361,7 @@ public class Board extends JPanel{
 			players.get(i % players.size()).setHand(deck.get(i));
 		}
 	}
-	
+
 	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked){
 		int start = -1;
 		for(int i = 0; i < playableCharacters.size();i++){
@@ -399,7 +379,7 @@ public class Board extends JPanel{
 				return card;
 			}
 		}
-		
+
 		for(int i = 0; i< start;i++){
 			card = playableCharacters.get(i).disproveSuggestion(suggestion);
 			if(card == null){
@@ -410,69 +390,31 @@ public class Board extends JPanel{
 			}
 		}
 		return null;
-	
+
 	}
-	public boolean checkAccusation(Solution accusation){
-		return solution.equals(accusation);
-	}
-	
-	public LinkedList<Player> getPlayers(){
-		return players;
-	}
-	
-	public LinkedList<Card> getDeckBeforeDeal(){
-		return deckBeforeDeal;
-	}
-	
-	public int getNumberPersons(){
-		return players.size();
-	}
-	
-	public int getNumberWeapons(){
-		return weapons.size();
-	}
-	
-	public int getNumberRooms(){
-		return roomCards.size();
-	}
-	
-	public int getDeckSizeBeforeDeal(){
-		return deckBeforeDeal.size();
-	}
-	public int getDealtCardSize(){
-		int total = 0;
-		for(Player p: playableCharacters){
-			total= total + p.getHand().size();
-		}
-		return total;
-	}
-	
-	public LinkedList<Player> getPlayable(){
-		return playableCharacters;
-	}
-	
-	public Solution getSolution(){
-		return solution;
-	}
+
 	public void setSolution(Solution sol){
 		solution.setPerson(sol.person);
 		solution.setRoom(sol.room);
 		solution.setWeapon(sol.weapon);
+	}
 
+	public void createHumanComputer(){
+		computerPlayers = new LinkedList<ComputerPlayer>();
+		human = new HumanPlayer();
+		for(Player p: players){
+			if(p.getName().equals("Miss Scarlett")){
+				human = new HumanPlayer(p.getName(), p.getRow(), p.getColumn(), p.getColor());
+				human.setTotalHand(p.getHand());	
+			}
+			else{
+				ComputerPlayer cp= new ComputerPlayer(p.getName(), p.getRow(), p.getColumn(), p.getColor());
+				cp.setTotalHand(p.getHand());
+				computerPlayers.add(cp);
+			}
+		}
 	}
-	
-	public void addPlayableCharacters(Player player){
-		playableCharacters.add(player);
-	}
-	
-	public void clearPlayers(){
-		playableCharacters.clear();
-	}
-	
-	public Set<Card> getWeapons(){
-		return weapons;
-	}
-	
+
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		HashMap<Character,Integer> xcoord = new HashMap<Character,Integer>();
@@ -486,7 +428,7 @@ public class Board extends JPanel{
 				}
 			}
 		}
-		
+
 		for(Player p: players){
 			p.draw(g, p.getColumn()*20, p.getRow()*20, 20, 20);
 		}
@@ -494,24 +436,102 @@ public class Board extends JPanel{
 			g.setColor(Color.BLUE);
 			g.drawString(rooms.get(c), ycoord.get(c)*16, xcoord.get(c)*18);
 		}
-		
+
 	}
 	
-	public void createHumanComputer(){
-		computerPlayers = new LinkedList<ComputerPlayer>();
-		human = new HumanPlayer();
-		for(Player p: players){
-			if(p.getName().equals("Miss Scarlett")){
-				human = new HumanPlayer(p.getName(), p.getRow(), p.getColumn(), p.getColor());
-				human.setTotalHand(p.getHand());	
-				}
-			else{
-				ComputerPlayer cp= new ComputerPlayer(p.getName(), p.getRow(), p.getColumn(), p.getColor());
-				cp.setTotalHand(p.getHand());
-				computerPlayers.add(cp);
-			}
-			}
+	public Color convertColor(String strColor) {
+		Color color; 
+		try {     
+			// We can use reflection to convert the string to a color
+			Field field = Class.forName("java.awt.Color").getField(strColor.trim());     
+			color = (Color)field.get(null); } 
+		catch (Exception e) {  
+			color = null; // Not defined 
 		}
-		
-		
+		return color;
+	}
+
+	public BoardCell getCellAt(int row, int column) {
+		return board[row][column];
+	}
+
+	public Set<BoardCell> getTargets() {
+		return targets;
+	}
+	public LinkedList<BoardCell> getAdjList(int row, int col) {
+		return adjMatrix.get(board[row][col]);
+	}
+
+
+	public boolean checkAccusation(Solution accusation){
+		return solution.equals(accusation);
+	}
+
+	public int getNumDoors() {
+		return numDoors;
+	}
+
+	public int getNumRows() {
+		return numRows;
+	}
+
+	public int getNumColumns() {
+		return numColumns;
+	}
+
+	public static Map<Character, String> getRooms() {
+		return rooms;
+	}
+
+	public LinkedList<Player> getPlayers(){
+		return players;
+	}
+
+	public LinkedList<Card> getDeckBeforeDeal(){
+		return deckBeforeDeal;
+	}
+
+	public int getNumberPersons(){
+		return players.size();
+	}
+
+	public int getNumberWeapons(){
+		return weapons.size();
+	}
+
+	public int getNumberRooms(){
+		return roomCards.size();
+	}
+
+	public int getDeckSizeBeforeDeal(){
+		return deckBeforeDeal.size();
+	}
+	public int getDealtCardSize(){
+		int total = 0;
+		for(Player p: playableCharacters){
+			total= total + p.getHand().size();
+		}
+		return total;
+	}
+
+	public LinkedList<Player> getPlayable(){
+		return playableCharacters;
+	}
+
+	public Solution getSolution(){
+		return solution;
+	}
+
+	public void addPlayableCharacters(Player player){
+		playableCharacters.add(player);
+	}
+
+	public void clearPlayers(){
+		playableCharacters.clear();
+	}
+
+	public Set<Card> getWeapons(){
+		return weapons;
+	}
+
 }

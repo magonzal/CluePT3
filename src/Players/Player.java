@@ -18,6 +18,7 @@ public class Player {
 	public Player(){
 		super();
 	}
+	
 	public Player(String playerName, int row, int column, Color color) {
 		super();
 		this.playerName = playerName;
@@ -48,6 +49,24 @@ public class Player {
 		}
 		
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if( this == other ) return true;
+		if(!(other instanceof Player)) return false;
+		
+		Player otherOne = (Player) other;
+		return this.playerName.equals(otherOne.playerName) &&
+				this.row == otherOne.row &&
+				this.column == otherOne.column &&
+				this.color.equals(otherOne.color);
+	}
+	
+	public void draw(Graphics g, int x, int y, int w, int h){
+		g.setColor(getColor());
+		g.fillOval(x, y, w-2, h-2);
+	}
+	
 	public void setHand(Card card){
 		hand.add(card);
 	}
@@ -80,17 +99,6 @@ public class Player {
 		return row;
 	}
 
-	@Override
-	public boolean equals(Object other) {
-		if( this == other ) return true;
-		if(!(other instanceof Player)) return false;
-		
-		Player otherOne = (Player) other;
-		return this.playerName.equals(otherOne.playerName) &&
-				this.row == otherOne.row &&
-				this.column == otherOne.column &&
-				this.color.equals(otherOne.color);
-	}
 	
 	public void setLastRoom(char room){
 		lastRoom = room;
@@ -99,9 +107,5 @@ public class Player {
 	public char getLastroom(){
 		return lastRoom;
 	}
-	
-	public void draw(Graphics g, int x, int y, int w, int h){
-		g.setColor(getColor());
-		g.fillOval(x, y, w-2, h-2);
-	}
+
 }

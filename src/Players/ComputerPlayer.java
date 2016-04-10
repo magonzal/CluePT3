@@ -11,6 +11,7 @@ import Game.*;
 
 public class ComputerPlayer extends Player{
 	LinkedList<Card> seen;
+	
 	public ComputerPlayer(String playerName, int row, int column, Color color) {
 		super(playerName, row, column, color);
 		seen = new LinkedList<Card>();
@@ -80,6 +81,4 @@ public class ComputerPlayer extends Player{
 		return seen;
 	}
 	
-
-
 }

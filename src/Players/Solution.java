@@ -12,30 +12,6 @@ public class Solution {
 		this.weapon = weapon;
 	}
 
-	public String getPerson() {
-		return person;
-	}
-
-	public String getRoom() {
-		return room;
-	}
-
-	public String getWeapon() {
-		return weapon;
-	}
-
-	public void setPerson(String person) {
-		this.person = person;
-	}
-
-	public void setRoom(String room) {
-		this.room = room;
-	}
-
-	public void setWeapon(String weapon) {
-		this.weapon = weapon;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,6 +54,28 @@ public class Solution {
 		return "Solution [person=" + person + ", room=" + room + ", weapon=" + weapon + "]";
 	}
 	
-	
+	public String getPerson() {
+		return person;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	public String getWeapon() {
+		return weapon;
+	}
+
+	public void setPerson(String person) {
+		this.person = person;
+	}
+
+	public void setRoom(String room) {
+		this.room = room;
+	}
+
+	public void setWeapon(String weapon) {
+		this.weapon = weapon;
+	}
 	
 }

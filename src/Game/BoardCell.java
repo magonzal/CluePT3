@@ -19,6 +19,7 @@ public class BoardCell {
 		this.initial = initial;
 		this.doorDir = d;
 	}
+	
 	public BoardCell(int row, int column, char initial, char direction) {
 		super();
 		this.row = row;
@@ -37,12 +38,34 @@ public class BoardCell {
 			default: doorDir = DoorDirection.NONE;
 		}
 	}
-	public char getInitial() {
-		return initial;
-	}
+	
+	public void draw(Graphics g, int r, int c, int w, int h){
+		int x = r;
+		int y = c;
+		g.setColor(Color.gray);
+		g.fillRect(x, y, w, h);
+		if(isWalkway()){
+			g.setColor(Color.orange);
+			g.fillRect(x, y, w-1, h-1);
 
-	public DoorDirection getDoorDirection() {
-		return doorDir;
+		}
+		else if(isDoorway()){
+			Graphics2D g2 = (Graphics2D) g;
+			g2.setColor(Color.BLUE);
+			g2.setStroke(new BasicStroke(3));
+			switch(getDoorDirection()){
+				case UP: g2.drawLine(x,y,x+20,y);
+					break;
+				case DOWN: g2.drawLine(x+20, y+18, x, y+18);
+					break;
+				case LEFT: g2.drawLine(x, y, x, y+20);
+					break;
+				case RIGHT: g2.drawLine(x+18, y, x+18, y+20);
+					break;
+			
+			}
+	
+		}
 	}
 
 	public boolean isWalkway() {
@@ -73,34 +96,15 @@ public class BoardCell {
 	public int getColumn(){
 		return column;
 	}
-	public void draw(Graphics g, int r, int c, int w, int h){
-		int x = r;
-		int y = c;
-		g.setColor(Color.gray);
-		g.fillRect(x, y, w, h);
-		if(isWalkway()){
-			g.setColor(Color.orange);
-			g.fillRect(x, y, w-1, h-1);
-
-		}
-		else if(isDoorway()){
-			Graphics2D g2 = (Graphics2D) g;
-			g2.setColor(Color.BLUE);
-			g2.setStroke(new BasicStroke(3));
-			switch(getDoorDirection()){
-				case UP: g2.drawLine(x,y,x+20,y);
-					break;
-				case DOWN: g2.drawLine(x+20, y+18, x, y+18);
-					break;
-				case LEFT: g2.drawLine(x, y, x, y+20);
-					break;
-				case RIGHT: g2.drawLine(x+18, y, x+18, y+20);
-					break;
-			
-			}
 	
-		}
+	public char getInitial() {
+		return initial;
 	}
+
+	public DoorDirection getDoorDirection() {
+		return doorDir;
+	}
+
 }
 
 	
