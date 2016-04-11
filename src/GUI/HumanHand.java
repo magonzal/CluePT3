@@ -22,21 +22,13 @@ public class HumanHand extends JPanel {
 	public HumanHand(){
 		board = new Board();
 		board.initialize();
-		setLayout(new GridLayout(0, 1));
-		add(createPanel());
-	}
-	
-	private JPanel createPanel(){
-		cardPanel = new JPanel();
 		setBorder(new TitledBorder(new EtchedBorder(), "My Cards"));
+		setSize(new Dimension(800, 200));
 		setLayout(new GridLayout(0, 1));
-		setSize(500, 200);
 		add(peopleCards());
 		add(weaponCards());
 		add(roomCards());
-		return cardPanel;
 	}
-	
 	
 	private JPanel peopleCards(){
 		JPanel people = new JPanel();

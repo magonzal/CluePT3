@@ -414,7 +414,7 @@ public class Board extends JPanel{
 		computerPlayers = new LinkedList<ComputerPlayer>();
 		human = new HumanPlayer();
 		for(Player p: players){
-			if(p.getName().equals("Miss Scarlett")){
+			if(p.getName().equals("Miss Scarlet")){
 				human = new HumanPlayer(p.getName(), p.getRow(), p.getColumn(), p.getColor());
 				human.setTotalHand(p.getHand());	
 			}
