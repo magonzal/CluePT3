@@ -17,11 +17,14 @@ public class Control extends JPanel {
 	
 	public Control() {
 		setLayout(new GridLayout(2, 0));
-		JPanel firstPanel = createFirstPanel();
-		add(firstPanel);
-		JPanel secondPanel = createSecondPanel();
-		add(secondPanel);
-		
+		JPanel panel = createFirstPanel();
+		add(panel, BorderLayout.CENTER);
+		panel = createDiePanel();
+		add(panel, BorderLayout.SOUTH);
+		panel = createGuessPanel();
+		add(panel, BorderLayout.SOUTH);
+		panel = createGuessResultPanel();
+		add(panel, BorderLayout.SOUTH);
 	}
 
 	private JPanel createFirstPanel(){
@@ -41,7 +44,8 @@ public class Control extends JPanel {
 	
 	private JPanel createDiePanel(){
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1,0));
+		panel.setPreferredSize(new Dimension(10, 10));
+		panel.setLayout(new GridLayout(2,0));
 		JLabel rollLabel  = new JLabel("Roll");
 		title = new JTextField(5);
 		title.setEditable(false);
@@ -65,7 +69,7 @@ public class Control extends JPanel {
 	
 	private JPanel createGuessResultPanel(){
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1, 0));
+		panel.setLayout(new GridLayout(2, 0));
 		JLabel guessResultLabel = new JLabel("Response");
 		title = new JTextField(15);
 		title.setEditable(false);
@@ -74,23 +78,5 @@ public class Control extends JPanel {
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Guess Result"));
 		return panel;
 	}
-	
-	private JPanel createSecondPanel(){
-		JPanel panel  = new JPanel();
-		panel.add(createDiePanel());
-		panel.add(createGuessPanel());
-		panel.add(createGuessResultPanel());
-		return panel;
-	}
-	
-	/*public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new GridLayout(2, 0));
-		frame.setSize(new Dimension(600,  400));
-		Control controlGui = new Control();
-		frame.add(controlGui);
-		frame.setVisible(true);
-	}*/
 
 }

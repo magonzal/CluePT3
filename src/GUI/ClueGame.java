@@ -20,15 +20,16 @@ public class ClueGame extends JFrame{
 	private HumanHand humanCards;
 	
 	public ClueGame(){
-		setSize(800, 800);
+		setSize(1100, 650);
 		setTitle("Clue");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		board = new Board();
 		board.initialize();
 		control = new Control();
+		humanCards = new HumanHand();
 		add(board, BorderLayout.CENTER);
-		add(control, BorderLayout.NORTH);
-		add(humanCards, BorderLayout.EAST);
+		add(control, BorderLayout.SOUTH);
+		add(humanCards, BorderLayout.WEST);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

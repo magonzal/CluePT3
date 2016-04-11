@@ -1,9 +1,11 @@
 package GUI;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
@@ -15,37 +17,78 @@ public class HumanHand extends JPanel {
 	JPanel cardPanel;
 	Board board;
 	static final int dim = 10;
+	private JTextField name;
 	
 	public HumanHand(){
 		board = new Board();
 		board.initialize();
 		setLayout(new GridLayout(0, 1));
+		add(createPanel());
 	}
 	
 	private JPanel createPanel(){
 		cardPanel = new JPanel();
 		setBorder(new TitledBorder(new EtchedBorder(), "My Cards"));
-		
-		for(Card c: board.human.getHand()){
-			
-		}
-		
+		setLayout(new GridLayout(0, 1));
+		setSize(500, 200);
+		add(peopleCards());
+		add(weaponCards());
+		add(roomCards());
 		return cardPanel;
 	}
 	
-	private JPanel peopleCards(Graphics g){
+	
+	private JPanel peopleCards(){
 		JPanel people = new JPanel();
-		setBorder(new TitledBorder(new EtchedBorder(), "People"));
-		
+		people.setBorder(new TitledBorder(new EtchedBorder(), "People"));
+		JPanel card = new JPanel();
+		card.setBorder(new EtchedBorder());
+		name = new JTextField(15);
+		name.setEditable(false);
 		for(Card c: board.human.getHand()){
 			if(c.getCardType() == CardType.PERSON){
-				g.drawRect(dim, dim, dim, dim);
-				g.drawString(c.getCardName(), dim/2, dim);
+				name.setText(c.getCardName());
+				card.add(name);
+				people.add(card);
 			}
 		}
 		
 		return people;
 	}
 	
+	private JPanel weaponCards(){
+		JPanel weapons = new JPanel();
+		weapons.setBorder(new TitledBorder(new EtchedBorder(), "Weapons"));
+		JPanel card = new JPanel();
+		card.setBorder(new EtchedBorder());
+		name = new JTextField(15);
+		name.setEditable(false);
+		for(Card c: board.human.getHand()){
+			if(c.getCardType() == CardType.WEAPON){
+				name.setText(c.getCardName());
+				card.add(name);
+				weapons.add(card);
+			}
+		}
+		
+		return weapons;
+	}
 	
+	private JPanel roomCards(){
+		JPanel rooms = new JPanel();
+		rooms.setBorder(new TitledBorder(new EtchedBorder(), "Rooms"));
+		JPanel card = new JPanel();
+		card.setBorder(new EtchedBorder());
+		name = new JTextField(15);
+		name.setEditable(false);
+		for(Card c: board.human.getHand()){
+			if(c.getCardType() == CardType.ROOM){
+				name.setText(c.getCardName());
+				card.add(name);
+				rooms.add(card);
+			}
+		}
+		
+		return rooms;
+	}
 }

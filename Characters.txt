@@ -2,5 +2,5 @@ Professor Plum, 0, 6, Black
 Mrs. White, 11, 0, White
 Mr. Green, 24, 6, Green
 Mrs. Peacock, 24, 12, Blue
-Miss Scarlett, 0, 17, Red
+Miss Scarlet, 0, 17, Red
 Colonel Mustard, 24, 17, Yellow
