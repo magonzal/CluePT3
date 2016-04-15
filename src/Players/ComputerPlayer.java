@@ -1,11 +1,12 @@
 package Players;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
+import javax.swing.JPanel;
 
 import Game.*;
 
@@ -84,4 +85,9 @@ public class ComputerPlayer extends Player{
 		return seen;
 	}
 	
+	public void makeMove(Set<BoardCell> targets, Graphics g){
+		BoardCell loc = pickLocation(targets);
+		this.draw(g, loc.getColumn()*20, loc.getRow()*20, 20, 20);
+
+	}
 }

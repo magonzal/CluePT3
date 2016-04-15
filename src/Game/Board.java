@@ -24,6 +24,7 @@ public class Board extends JPanel{
 	private int numRows;
 	private int numColumns;
 	private int numDoors = 0;
+	private static String numberDie;
 	public final static int BOARD_SIZE = 50;
 	private BoardCell[][] board;
 	private static Map<Character,String> rooms;
@@ -45,6 +46,7 @@ public class Board extends JPanel{
 	private LinkedList<Card> deckBeforeDeal;
 	private int numPlayers;
 	private Solution solution;
+	private boolean humanMustFinish;
 
 	public Board() {
 		super();
@@ -448,6 +450,7 @@ public class Board extends JPanel{
 			g.setColor(Color.BLUE);
 			g.drawString(rooms.get(c), ycoord.get(c)*16, xcoord.get(c)*18);
 		}
+		
 
 	}
 	
@@ -463,7 +466,31 @@ public class Board extends JPanel{
 		}
 		return color;
 	}
+	public void nextPlayer(Player player, int steps, Graphics g){
+		super.paintComponent(g);
+		calcTargets(player.getRow(), player.getColumn(), steps);
+		if(player.getName().equals("Miss Scarlet")){
+			HumanPlayer hPlayer = new HumanPlayer();
+			hPlayer = (HumanPlayer) player;
+			humanMustFinish = true;
+			highlightTargets(targets,g);
+		
+			//hPlayer.makeMove(targets, g);
+		}
+	}
+	
+	public void highlightTargets(Set<BoardCell> targets, Graphics g){
+		if(targets!= null){
+			for(BoardCell c: targets){
+				board[c.getRow()][c.getColumn()].setHighlight(true);
+				//c.setHighlight(true);
+				//board[c.getRow()][c.getColumn()].draw(g, c.getColumn()*20, c.getRow()*20, 20, 20);
+			}
+			repaint();
+		}
+	
 
+	}
 	//Getter/Setter methods
 	public BoardCell getCellAt(int row, int column) {
 		return board[row][column];
@@ -546,6 +573,22 @@ public class Board extends JPanel{
 
 	public Set<Card> getWeapons(){
 		return weapons;
+	}
+
+	public static String getNumberDie() {
+		return numberDie;
+	}
+
+	public static void setNumberDie(String numberDie) {
+		Board.numberDie = numberDie;
+	}
+	
+	public Player getHuman(){
+		return human;
+	}
+	
+	public LinkedList<ComputerPlayer> getComputerPlayers(){
+		return computerPlayers;
 	}
 
 }

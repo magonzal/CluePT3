@@ -10,6 +10,7 @@ public class BoardCell {
 	private int column;
 	private char initial;
 	private DoorDirection doorDir;
+	private boolean highlight = false;
 	
 	
 	public BoardCell(int row, int column, char initial, DoorDirection d) {
@@ -45,10 +46,14 @@ public class BoardCell {
 		int y = c;
 		g.setColor(Color.gray);
 		g.fillRect(x, y, w, h);
-		if(isWalkway()){
+		
+		if(isWalkway() && !highlight){
 			g.setColor(Color.orange);
 			g.fillRect(x, y, w-1, h-1);
-
+		}
+		else if(highlight){
+			g.setColor(Color.cyan);
+			g.fillRect(x, y, w-1, h-1);
 		}
 		else if(isDoorway()){
 			Graphics2D g2 = (Graphics2D) g;
@@ -107,6 +112,9 @@ public class BoardCell {
 
 	public DoorDirection getDoorDirection() {
 		return doorDir;
+	}
+	public void setHighlight(boolean higlight){
+		this.highlight = highlight;
 	}
 
 }
